@@ -2,8 +2,8 @@
   <app-post [name]="post.name" [img]="post.img" [time]="post.time" [text]="post.text"></app-post>
 }
 
-@if (lastMessage) {
-  <app-messages [type]="lastMessage.type" [message]="lastMessage.message"></app-messages>
+@if (lastMessage()) {
+  <app-messages [type]="lastMessage()!.type" [message]="lastMessage()!.message"></app-messages>
 }
 
 <div class="container">

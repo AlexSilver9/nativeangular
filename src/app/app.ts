@@ -20,7 +20,7 @@ interface Post {
 })
 export class App implements OnInit {
   data:Array<Post> = [];
-  lastMessage?:Message;
+  lastMessage = signal<Message | null>(null);
 
   count = 0;
   countSignal = signal(0);
@@ -46,7 +46,7 @@ export class App implements OnInit {
   }
 
   async ngOnInit(){
-    // Posts laden (könnte man auch in ApiService verschieben
+    // Posts laden (könnte man auch in ApiService verschieben)
     try {
       console.log('Fetching posts data...');
       const response = await fetch('./assets/data/posts.json');
@@ -65,8 +65,8 @@ export class App implements OnInit {
     // Messages laden
     this.apiService.getLastMessage().subscribe({
       next: (lastMessage) => {
-        this.lastMessage = lastMessage;
-        console.log('Last message fetched:', this.lastMessage);
+        this.lastMessage.set(lastMessage);
+        console.log('Last message fetched:', this.lastMessage());
       },
       error: (error) => {
         console.error('Error fetching last message:', error);
