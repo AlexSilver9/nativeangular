@@ -23,6 +23,7 @@ export class App implements OnInit {
   data:Array<Post> = [];
   lastMessage = signal<ApiMessage | null>(null);
   private messageSubscription?: Subscription;
+  apiMessages = signal<ApiMessage[]>([]);
 
   count = 0;
   countSignal = signal(0);
@@ -85,6 +86,15 @@ export class App implements OnInit {
     this.messageSubscription = this.apiService.getLastMessagePolling(1000).subscribe({
       next: (message) => {
         this.lastMessage.set(message);
+        this.apiMessages.update(messages => {
+          messages.reverse();
+          messages.push(message);
+          messages.reverse();
+          if (messages.length > 3) {
+            messages.pop();
+          }
+          return messages;
+        });
         console.log('Last tick-message updated:', this.lastMessage());
       },
       error: (error) => {

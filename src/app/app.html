@@ -6,6 +6,10 @@
   <app-tick-message [type]="lastMessage()!.type" [message]="lastMessage()!.message"></app-tick-message>
 }
 
+@for (apiMessage of apiMessages(); track apiMessage.message) {
+  <app-tick-message [type]="apiMessage.type" [message]="apiMessage.message"></app-tick-message>
+}
+
 <div class="container">
   <div class="count">{{ count }}</div>
   <div class="count-signal">{{ countSignal() }}</div>
