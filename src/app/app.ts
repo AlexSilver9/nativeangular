@@ -1,9 +1,10 @@
 import {Component, computed, effect, OnInit, signal} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {PostComponent} from './components/post/post';
-import {Messages} from './components/messages/messages';
-import {ApiService, Message} from './services/api.service'
+import {TickMessage} from './components/tick-message/tick-message';
+import {ApiService, ApiMessage} from './services/api.service'
 import {CustomComponentComponent} from './components/custom-component/custom-component';
+import {Subscription} from 'rxjs';
 
 interface Post {
   name:string,
@@ -14,13 +15,14 @@ interface Post {
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, PostComponent, Messages, CustomComponentComponent],
+  imports: [RouterOutlet, PostComponent, TickMessage, CustomComponentComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App implements OnInit {
   data:Array<Post> = [];
-  lastMessage = signal<Message | null>(null);
+  lastMessage = signal<ApiMessage | null>(null);
+  private messageSubscription?: Subscription;
 
   count = 0;
   countSignal = signal(0);
@@ -62,14 +64,31 @@ export class App implements OnInit {
       console.error('Error fetching posts data:', error);
     }
 
-    // Messages laden
-    this.apiService.getLastMessage().subscribe({
+    // TickMessage laden
+    /*this.apiService.getLastMessage().subscribe({
       next: (lastMessage) => {
         this.lastMessage.set(lastMessage);
-        console.log('Last message fetched:', this.lastMessage());
+        console.log('Last tick-message fetched:', this.lastMessage());
       },
       error: (error) => {
-        console.error('Error fetching last message:', error);
+        console.error('Error fetching last tick-message:', error);
+      }
+    });*/
+    this.startMessagePolling();
+  }
+
+  ngOnDestroy(): void {
+    this.messageSubscription?.unsubscribe();
+  }
+
+  private startMessagePolling() {
+    this.messageSubscription = this.apiService.getLastMessagePolling(1000).subscribe({
+      next: (message) => {
+        this.lastMessage.set(message);
+        console.log('Last tick-message updated:', this.lastMessage());
+      },
+      error: (error) => {
+        console.error('Error fetching last tick-message:', error);
       }
     });
   }

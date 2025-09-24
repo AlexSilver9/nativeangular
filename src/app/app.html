@@ -3,7 +3,7 @@
 }
 
 @if (lastMessage()) {
-  <app-messages [type]="lastMessage()!.type" [message]="lastMessage()!.message"></app-messages>
+  <app-tick-message [type]="lastMessage()!.type" [message]="lastMessage()!.message"></app-tick-message>
 }
 
 <div class="container">

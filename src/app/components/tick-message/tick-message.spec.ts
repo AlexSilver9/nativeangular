@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Messages } from './messages';
+import { TickMessage } from './tick-message';
 
-describe('Messages', () => {
-  let component: Messages;
-  let fixture: ComponentFixture<Messages>;
+describe('TickMessage', () => {
+  let component: TickMessage;
+  let fixture: ComponentFixture<TickMessage>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Messages]
+      imports: [TickMessage]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Messages);
+    fixture = TestBed.createComponent(TickMessage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
