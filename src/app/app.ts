@@ -95,7 +95,7 @@ export class App implements OnInit {
           }
           return messages;
         });
-        console.log('Last tick-message updated:', this.lastMessage());
+        //console.log('Last tick-message updated:', this.lastMessage());
       },
       error: (error) => {
         console.error('Error fetching last tick-message:', error);
