@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Margot Robbie",
+    "img": "./assets/img/Margot.jpg.webp",
+    "time": "vor 5 min",
+    "text": "Lorem Ipsum"
+  },
+  {
+    "name": "Predator",
+    "img": "./assets/img/Predator.jpg",
+    "time": "vor 10min",
+    "text": "ASD"
+  }
+]

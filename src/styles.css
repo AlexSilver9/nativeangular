@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+  background-color: #241b19;
+  color: white;
+  font-family: "Roboto", sans-serif;
+}
+
+.profile-image {
+  width: 50%;
+  height: 80%;
+  border-radius: 50%;
+}
